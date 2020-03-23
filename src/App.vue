@@ -1,17 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="meet">
+
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      
+    }
+  },
+  created () {
+    // var domain = 'meet.jit.si'
+    if (document.getElementById('my-datatable')) return; // was already loaded
+      var scriptTag = document.createElement("script");
+      scriptTag.src = "https://meet.jit.si/libs/lib-jitsi-meet.min.js";
+      scriptTag.id = "my-datatable";
+      document.getElementsByTagName('head')[0].appendChild(scriptTag);
+  },
+  mounted () {
+    var domain = 'meet.jit.si'
+    var options = {
+        roomName: 'JitsiMeetApiExample',
+        width: 700,
+        height: 700,
+        parentNode: document.querySelector('#meet')
+    }
+    var api = new JitsiMeetExternalAPI(domain, options)
   }
 }
 </script>
